@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR="$(dirname "$(readlink "$0")")"
+DEFAULT_WINDOWS_CONFIG=~/tmuxed_windows.sh
 
 declare -a funcs
 
@@ -26,7 +26,12 @@ case "$subcommand" in
         ;;
 esac
 
-. $DIR/tmux_windows.sh
+if [ -z "$TMUXED_WINDOWS" ]
+then
+    . $DEFAULT_WINDOWS_CONFIG
+else
+    . $TMUXED_WINDOWS
+fi
 
 if [ "$subcommand" == 'open' ]
 then
