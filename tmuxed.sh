@@ -4,17 +4,20 @@ DEFAULT_WINDOWS_CONFIG=~/tmuxed_windows.sh
 
 declare -a funcs
 
+USE='use'
+
 subcommand=$1; shift
 case "$subcommand" in
-    open)
-        while getopts 't:f:' opt; do
-            case ${opt} in
+    "$USE")
+        while getopts 't:f:' opt
+        do
+            case $opt in
                 t)
                     target=$OPTARG;;
                 f)
                     funcs+=( $OPTARG );;
                 :)
-                    echo "Invalid option -$OPTARG" 1>&2 exit 1;;
+                    echo "Invalid option -$OPTARG" 1>&2; exit 1;;
                 \?)
                     echo "Invalid option -$OPTARG" 1>&2; exit 1;;
             esac
@@ -33,7 +36,7 @@ else
     . $TMUXED_WINDOWS
 fi
 
-if [ "$subcommand" == 'open' ]
+if [ "$subcommand" == "$USE" ]
 then
     echo "Opening tmux with session name: ${target}."
 
